@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Product App</title>
+</head>
+<body>
+
+    <div>
+        <h2>Add a Doctor</h2>
+        <ul id="doctors" />
+    </div>
+    <div>
+        <h5>Doctor Name:</h5>
+        <input type="text" id="docName" size="15" />
+        <h5>Doctor Address:</h5>
+        <input type="text" id="docAddr" size="35" />
+        <h5>Doctor Zip:</h5>
+        <input type="text" id="docZip" size="10" />
+        <h5>License Number:</h5>
+        <input type="text" id="docLic" size="15" />
+        <br/>
+        <br/>
+        <input type="button" value="Create" onclick="create();" />
+        <p id="doctor" />
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+
+    function create() {
+        var doc = { DoctorName: $('#docName').val(), DoctorAddress: $('#docAddr').val(), DoctorZip: $('#docZip').val(), LicenseNo: $('#docLic').val() };
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(doc),
+            url: "api/Doctors",
+            contentType: "application/json",
+            success: function (data) { $('#doctor').text("Saved as ID: " + (data.Id)) }
+        });
+    }
+    </script>
+</body>
+</html>
