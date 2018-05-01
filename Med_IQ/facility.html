@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Med IQ</title>
+</head>
+<body>
+
+    <div>
+        <h2>Add a Medical Facility</h2>
+        <ul id="facilities" />
+    </div>
+    <div>
+        <h5>Facility Name:</h5>
+        <input type="text" id="facName" size="15" />
+        <h5>Facility Address:</h5>
+        <input type="text" id="facAddr" size="35" />
+        <h5>Facility Zip:</h5>
+        <input type="text" id="facZip" size="10" />
+        <h5>Facility Number:</h5>
+        <input type="text" id="facNo" size="15" />
+        <br/>
+        <br/>
+        <input type="button" value="Create" onclick="create();" />
+        <p id="facility" />
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+
+    function create() {
+        var doc = { FacilityName: $('#facName').val(), FacilityAddress: $('#facAddr').val(), FacilityZip: $('#facZip').val(), FacilityNo: $('#facNo').val() };
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(doc),
+            url: "api/Medical_Facility",
+            contentType: "application/json",
+            success: function (data) { $('#facility').text("Saved as ID: " + (data.Id)) }
+        });
+    }
+    </script>
+</body>
+</html>
