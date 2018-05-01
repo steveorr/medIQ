@@ -89,6 +89,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="na.html" />
+    <Content Include="procedure.html" />
     <Content Include="facility.html" />
     <Content Include="provider.html" />
     <Content Include="doctor.html" />

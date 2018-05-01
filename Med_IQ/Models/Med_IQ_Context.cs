@@ -10,6 +10,8 @@ namespace Med_IQ.Models
         public Med_IQ_Context()
             : base("name=Med_IQ_Context")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Doctors> Doctors { get; set; }
