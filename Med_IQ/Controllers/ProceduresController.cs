@@ -101,6 +101,21 @@ namespace Med_IQ.Controllers
             return Ok(procedures);
         }
 
+        [Route("api/Procedures/Search/{typeid}/{insurerid}/{procdate}/{email}")]
+        [HttpGet]
+        [ResponseType(typeof(Procedures))]
+        public IHttpActionResult Search(int typeid, int insurerid, DateTime procdate, string email)
+        {
+            var procedures = db.Procedures.Where(p => p.ProcedureTypeID == typeid || p.InsurerID == insurerid || p.ProcedureDate == procdate || p.PatientEmail == email );
+
+            if (procedures == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(procedures);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

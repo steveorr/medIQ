@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="na.html" />
+    <Content Include="search.html" />
     <Content Include="procedure.html" />
     <Content Include="facility.html" />
     <Content Include="provider.html" />
