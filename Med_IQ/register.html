@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Registration</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10"><h2>User Details</h2></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            User Name:
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="txtUserName" />
+        </div>
+        <div class="col-md-2">
+            <span>User Name is a required field.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Password:
+        </div>
+        <div class="col-md-2">
+            <input type="password" id="txtPassword" />
+        </div>
+        <div class="col-md-2">
+            <span>Passwords must match.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Confirm Password:
+        </div>
+        <div class="col-md-2">
+            <input type="password" id="txtConfirmPassword" />
+        </div>
+        <div class="col-md-2">
+            <span>Password is a required field.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Email Address:
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="txtEmail" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Role:
+        </div>
+        <div class="col-md-2">
+            <select id="ddlRole">
+                <option value="0">---Select Role---</option>
+                <option value="1">Patient</option>
+                <option value="2">Doctor</option>
+                <option value="3">Medical Facility</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <input type="button" value="Register" onclick="saveUser();" />
+        </div>
+    </div>
+    <p id="userInfo" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        function saveUser() {
+
+            var user = {
+                UserName: $('#txtUserName').val(),
+                Password: $('#txtPassword').val(),
+                Email: $('#txtEmail').val(),
+                RoleType: $('#ddlRole').val()
+            };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(user),
+                url: "api/Users",
+                contentType: "application/json",
+                success: function (data) { $('#userInfo').text("User successfully registered!") },
+                failure: function () {
+                    alert("Error on save");
+                }
+            });
+        }
+    </script>
+</body >
+</html >

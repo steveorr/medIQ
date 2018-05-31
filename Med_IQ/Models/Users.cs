@@ -20,6 +20,10 @@ namespace Med_IQ.Models
         [StringLength(20)]
         public string Password { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
+
         public int RoleType { get; set; }
 
         public int ChildID { get; set; }

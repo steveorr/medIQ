@@ -107,6 +107,8 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include=".bin\npm.cmd" />
+    <Content Include="register.html" />
+    <Content Include="review.html" />
     <Content Include="search.html" />
     <Content Include="procedure.html" />
     <Content Include="facility.html" />
@@ -127,10 +129,12 @@
     <Compile Include="Controllers\ProceduresController.cs" />
     <Compile Include="Controllers\Procedure_TypesController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Doctors.cs" />
+    <Compile Include="Models\Error_Log.cs" />
     <Compile Include="Models\Insurance_Providers.cs" />
     <Compile Include="Models\Medical_Facility.cs" />
     <Compile Include="Models\Med_IQ_Context.cs" />

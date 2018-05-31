@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Procedure Review</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10"><h2>Procedure Review</h2></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Procedure ID:
+        </div>
+        <div class="col-md-2">
+            <div id="procID"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Procedure Date:
+        </div>
+        <div class="col-md-2">
+            <div id="procDate"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Patient Email:
+        </div>
+        <div class="col-md-2">
+            <div id="patEmail"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Cost:
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="txtCost" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Rating:
+        </div>
+        <div class="col-md-2">
+            <select id="ddlRating">
+                <option id="0">---Select Rating---</option>
+                <option id="1">1</option>
+                <option id="2">2</option>
+                <option id="3">3</option>
+                <option id="4">4</option>
+                <option id="5">5</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            Comments:
+        </div>
+        <div class="col-md-2">
+            <textarea rows="10" cols="30" id="txtComments"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <input type="button" value="Submit Review" onclick="saveReview();" />
+        </div>
+    </div>
+    <p id="review" />
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(location.search);
+            var procId = urlParams.get('pid');
+
+            getById(procId);
+        });
+
+        function getById(procId) {
+            $.ajax({
+                type: "get",
+                url: "api/Procedures/" + procId,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (data) { $('#procID').text((data.Id)); $('#procDate').text((data.ProcedureDate)); $('#patEmail').text((data.PatientEmail)) },
+                failure: function () {
+                    alert("Error");
+                }
+            });
+        }
+
+        function saveReview() {
+
+            var review = {
+                ProcedureID: $('#procID').text(),
+                Cost: $('#txtCost').val(),
+                ReviewComments: $('#txtComments').val(),
+                ReviewRating: $('#ddlRating').val()
+            };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(review),
+                url: "api/Reviews",
+                contentType: "application/json",
+                success: function (data) { $('#review').text("Review successfully saved!") },
+                failure: function () {
+                    alert("Error on save");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
