@@ -2,8 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Med IQ</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">medIQ</span> Your Health</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="subscription.html">Subscribe</a> </li>
+                    <li><a href="na.html">Login (WIP)</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div>
         <h2>Add a Procedure</h2>
@@ -37,98 +54,98 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
 
-    $(document).ready(function () {
-        $.ajax({
-            type: "get",
-            url: "api/Doctors",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlDoctor').append($('<option></option>').val(result[i].Id).html(result[i].DoctorName));
-//                    $('#ddlDoctor').append($('<option></option>').attr('value', result[i].Id).text(result[i].DoctorName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: "api/Doctors",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlDoctor').append($('<option></option>').val(result[i].Id).html(result[i].DoctorName));
+                        //                    $('#ddlDoctor').append($('<option></option>').attr('value', result[i].Id).text(result[i].DoctorName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-        $.ajax({
-            type: "get",
-            url: "api/Insurance_Providers",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlIns').append($('<option></option>').val(result[i].Id).html(result[i].ProviderName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+            $.ajax({
+                type: "get",
+                url: "api/Insurance_Providers",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlIns').append($('<option></option>').val(result[i].Id).html(result[i].ProviderName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-        $.ajax({
-            type: "get",
-            url: "api/Medical_Facility",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlFac').append($('<option></option>').val(result[i].Id).html(result[i].FacilityName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+            $.ajax({
+                type: "get",
+                url: "api/Medical_Facility",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlFac').append($('<option></option>').val(result[i].Id).html(result[i].FacilityName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-        $.ajax({
-            type: "get",
-            url: "api/Procedure_Types",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlProc').append($('<option></option>').val(result[i].Id).html(result[i].ProcedureName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+            $.ajax({
+                type: "get",
+                url: "api/Procedure_Types",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlProc').append($('<option></option>').val(result[i].Id).html(result[i].ProcedureName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-    });
+        });
 
         function create() {
 
-        var doc = {
-            ProcedureTypeID: $('#ddlProc').val(),
-            DoctorID: $('#ddlDoctor').val(),
-            FacilityID: $('#ddlFac').val(),
-            InsurerID: $('#ddlIns').val(),
-            RecoveryDuration: $('#recDur').val(),
-            ProcedureDuration: $('#procDur').val(),
-            ProcedureDate: $('#procDate').val(),
-            PatientEmail: $('#patEmail').val(),
-            WasSuccess: true
-        };
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(doc),
-            url: "api/Procedures",
-            contentType: "application/json",
-            success: function (data) { $('#procedure').text("Saved as ID: " + (data.Id)) },
-            failure: function () {
-                alert("Error on save");
-            }
-        });
-    }
+            var doc = {
+                ProcedureTypeID: $('#ddlProc').val(),
+                DoctorID: $('#ddlDoctor').val(),
+                FacilityID: $('#ddlFac').val(),
+                InsurerID: $('#ddlIns').val(),
+                RecoveryDuration: $('#recDur').val(),
+                ProcedureDuration: $('#procDur').val(),
+                ProcedureDate: $('#procDate').val(),
+                PatientEmail: $('#patEmail').val(),
+                WasSuccess: true
+            };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(doc),
+                url: "api/Procedures",
+                contentType: "application/json",
+                success: function (data) { $('#procedure').text("Saved as ID: " + (data.Id)) },
+                failure: function () {
+                    alert("Error on save");
+                }
+            });
+        }
     </script>
 </body>
 </html>

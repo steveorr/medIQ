@@ -2,8 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Med IQ</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">medIQ</span> Your Health</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="subscription.html">Subscribe</a> </li>
+                    <li><a href="na.html">Login (WIP)</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div>
         <h2>Add an Insurance Provider</h2>
@@ -18,8 +35,8 @@
         <input type="text" id="pvdZip" size="10" />
         <h5>Provider Number:</h5>
         <input type="text" id="pvdNo" size="15" />
-        <br/>
-        <br/>
+        <br />
+        <br />
         <input type="button" value="Create" onclick="create();" />
         <p id="provider" />
     </div>
@@ -27,16 +44,16 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
 
-    function create() {
-        var doc = { ProviderName: $('#pvdName').val(), ProviderAddress: $('#pvdAddr').val(), ProviderZip: $('#pvdZip').val(), ProviderNo: $('#pvdNo').val() };
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(doc),
-            url: "api/Insurance_Providers",
-            contentType: "application/json",
-            success: function (data) { $('#provider').text("Saved as ID: " + (data.Id)) }
-        });
-    }
+        function create() {
+            var doc = { ProviderName: $('#pvdName').val(), ProviderAddress: $('#pvdAddr').val(), ProviderZip: $('#pvdZip').val(), ProviderNo: $('#pvdNo').val() };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(doc),
+                url: "api/Insurance_Providers",
+                contentType: "application/json",
+                success: function (data) { $('#provider').text("Saved as ID: " + (data.Id)) }
+            });
+        }
     </script>
 </body>
 </html>

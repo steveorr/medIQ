@@ -91,3 +91,11 @@ header a:hover{
 	float:inherit;
 	margin-top: 15px;
 }
+header #organizations{
+	float:left;
+}
+
+header #organizations h1{
+	margin: 0;
+}
+

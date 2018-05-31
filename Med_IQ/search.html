@@ -2,108 +2,158 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Med IQ</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">medIQ</span> Your Health</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="subscription.html">Subscribe</a> </li>
+                    <li><a href="na.html">Login (WIP)</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div>
-        <h2>Search!</h2>
-        <ul id="procedures" />
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h3>Enter search criteria to locate procedures.</h3>
+            </div>
+        </div>
     </div>
     <div>
-        <!--<h5>Doctor:</h5>
-        <select id="ddlDoctor"><option value="0">---Select---</option></select>-->
-        <h5>Procedure Type:</h5>
-        <select id="ddlProc"><option value="0">---Select---</option></select>
-        <!--<h5>Medical Facility:</h5>
-        <select id="ddlFac"><option value="0">---Select---</option></select>-->
-        <h5>Insurance Provider:</h5>
-        <select id="ddlIns"><option value="0">---Select---</option></select>
-        <!--<h5>Recovery Duration (hours):</h5>
-        <input type="text" id="recDur" size="10" />
-        <h5>Procedure Duration (hours):</h5>
-        <input type="text" id="procDur" size="10" /-->
-        <h5>Procedure Date:</h5>
-        <input type="date" id="procDate" size="10" />
-        <h5>Patient Email:</h5>
-        <input type="text" id="patEmail" size="30" />
-        <!--<h5>Procedure Successful?</h5>
-        <input type="checkbox" id="chkSuccess" size="10" />-->
-        <br />
-        <br />
-        <input type="button" value="Search" onclick="search();" />
-        <p id="procedure" />
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+                Procedure Type:
+            </div>
+            <div class="col-md-2">
+                <select id="ddlProc"><option value="0">---Select---</option></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+                Ins. Provider:
+            </div>
+            <div class="col-md-2">
+                <select id="ddlIns"><option value="0">---Select---</option></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+                Procedure Date:
+            </div>
+            <div class="col-md-2">
+                <input type="date" id="procDate" size="10" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+                Patient Email:
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="patEmail" size="30" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-1">
+                <input type="button" value="Search" onclick="search();" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <p id="procedure" />
+            </div>
+        </div>
     </div>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
 
-    $(document).ready(function () {
-        $.ajax({
-            type: "get",
-            url: "api/Doctors",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlDoctor').append($('<option></option>').val(result[i].Id).html(result[i].DoctorName));
-//                    $('#ddlDoctor').append($('<option></option>').attr('value', result[i].Id).text(result[i].DoctorName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: "api/Doctors",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlDoctor').append($('<option></option>').val(result[i].Id).html(result[i].DoctorName));
+                        //                    $('#ddlDoctor').append($('<option></option>').attr('value', result[i].Id).text(result[i].DoctorName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-        $.ajax({
-            type: "get",
-            url: "api/Insurance_Providers",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlIns').append($('<option></option>').val(result[i].Id).html(result[i].ProviderName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+            $.ajax({
+                type: "get",
+                url: "api/Insurance_Providers",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlIns').append($('<option></option>').val(result[i].Id).html(result[i].ProviderName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-        $.ajax({
-            type: "get",
-            url: "api/Medical_Facility",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlFac').append($('<option></option>').val(result[i].Id).html(result[i].FacilityName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+            $.ajax({
+                type: "get",
+                url: "api/Medical_Facility",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlFac').append($('<option></option>').val(result[i].Id).html(result[i].FacilityName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-        $.ajax({
-            type: "get",
-            url: "api/Procedure_Types",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: {},
-            success: function (result) {
-                $.each(result, function (i) {
-                    $('#ddlProc').append($('<option></option>').val(result[i].Id).html(result[i].ProcedureName));
-                });
-            },
-            failure: function () {
-                alert("Error");
-            }
-        });
+            $.ajax({
+                type: "get",
+                url: "api/Procedure_Types",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (result) {
+                    $.each(result, function (i) {
+                        $('#ddlProc').append($('<option></option>').val(result[i].Id).html(result[i].ProcedureName));
+                    });
+                },
+                failure: function () {
+                    alert("Error");
+                }
+            });
 
-    });
+        });
 
         function formatItem(item) {
             return "<tr><td>" + item.PatientEmail + '</td><td>' + item.ProcedureDate + '</td></tr>';
@@ -114,12 +164,10 @@
             var pDate = $('#procDate').val();
             var pEmail = $('#patEmail').val();
 
-            if (pDate.length == 0)
-            {
+            if (pDate.length == 0) {
                 pDate = '01-01-1980';
             }
-            if (pEmail.length == 0)
-            {
+            if (pEmail.length == 0) {
                 pEmail = 'xxx';
             }
 
@@ -128,16 +176,16 @@
 
             $('#procedure').append('<table border="1"><tr><td>Email</td><td>Date</td></tr>');
 
-                $.getJSON(uri)
-                    .done(function (data) {
-                        $.each(data, function (key, item) {
-                            $('#procedure').append(formatItem(item));
-                        });
+            $.getJSON(uri)
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        $('#procedure').append(formatItem(item));
                     });
+                });
 
             $('#procedure').append('</table>');
 
-    }
+        }
     </script>
 </body>
 </html>
