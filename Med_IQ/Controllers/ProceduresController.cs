@@ -108,12 +108,53 @@ namespace Med_IQ.Controllers
         {
             var procedures = db.Procedures.Where(p => p.ProcedureTypeID == typeid || p.InsurerID == insurerid || p.ProcedureDate == procdate || p.PatientEmail == email );
 
-            if (procedures == null)
+            List<ProceduresSearchResults> results = new List<ProceduresSearchResults>();
+
+            foreach(var proc in procedures)
+            {
+                ProceduresSearchResults result = new ProceduresSearchResults();
+                result.Id = proc.Id;
+                result.DoctorName = db.Doctors.Where(p => p.Id == proc.DoctorID).FirstOrDefault().DoctorName;
+                result.FacilityName = db.Medical_Facility.Where(p => p.Id == proc.FacilityID).FirstOrDefault().FacilityName;
+                result.InsurerName = db.Insurance_Providers.Where(p => p.Id == proc.InsurerID).FirstOrDefault().ProviderName;
+                result.ProcedureName = db.Procedure_Types.Where(p => p.Id == proc.ProcedureTypeID).FirstOrDefault().ProcedureName;
+                result.PatientEmail = proc.PatientEmail;
+                result.ProcedureDate = proc.ProcedureDate;
+
+                results.Add(result);
+            }
+
+            if (results == null)
             {
                 return NotFound();
             }
 
-            return Ok(procedures);
+            return Ok(results);
+        }
+
+        [Route("api/Procedures/GetProcDetails/{procId}")]
+        [HttpGet]
+        [ResponseType(typeof(Procedures))]
+        public IHttpActionResult GetProcDetails(int procId)
+        {
+            var proc = db.Procedures.Where(p => p.Id == procId).FirstOrDefault();
+
+            if (proc == null)
+            {
+                return NotFound();
+            }
+
+            ProceduresSearchResults result = new ProceduresSearchResults();
+            result.Id = proc.Id;
+            result.DoctorName = db.Doctors.Where(p => p.Id == proc.DoctorID).FirstOrDefault().DoctorName;
+            result.FacilityName = db.Medical_Facility.Where(p => p.Id == proc.FacilityID).FirstOrDefault().FacilityName;
+            result.InsurerName = db.Insurance_Providers.Where(p => p.Id == proc.InsurerID).FirstOrDefault().ProviderName;
+            result.ProcedureName = db.Procedure_Types.Where(p => p.Id == proc.ProcedureTypeID).FirstOrDefault().ProcedureName;
+            result.PatientEmail = proc.PatientEmail;
+            result.ProcedureDate = proc.ProcedureDate;
+//            result.Reviews = proc.Reviews;
+
+            return Ok(proc);
         }
 
         protected override void Dispose(bool disposing)

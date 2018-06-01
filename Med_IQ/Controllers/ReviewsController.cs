@@ -101,6 +101,21 @@ namespace Med_IQ.Controllers
             return Ok(reviews);
         }
 
+        [Route("api/Reviews/GetReviewsForProc/{procId}")]
+        [HttpGet]
+        [ResponseType(typeof(Reviews))]
+        public IHttpActionResult GetReviewsForProc(int procId)
+        {
+            var proc = db.Reviews.Where(p => p.ProcedureID == procId);
+
+            if (proc == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(proc);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

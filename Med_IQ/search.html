@@ -18,76 +18,103 @@
                     <li class="current"><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="subscription.html">Subscribe</a> </li>
-                    <li><a href="na.html">Login (WIP)</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li><a class="not-logged-in" href="login.html">Login</a></li>
+                    <li><a class="not-logged-in" href="register.html">Register</a></li>
+                    <li><p id="logged-in"></p></li>
+                    <li><a id="logout" style="display:none;" href="javascript:logOut();">Log out</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <h3>Enter search criteria to locate procedures.</h3>
-            </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <section id="organizations" style="height:100%;">
+                <div class="container">
+                    <div class="menu">
+                        <ul>
+                            <li><a href="search.html">Procedure Search</a></li>
+                            <li id="lnkDocs" style="display:none;"><a href="doctor.html">Doctors</a></li>
+                            <li id="lnkProv" style="display:none;"><a href="provider.html">Insurance Providers</a></li>
+                            <li id="lnkFac" style="display:none;"><a href="facility.html">Medical Facilities</a></li>
+                            <li id="lnkProc" style="display:none;"><a href="procedure.html">Procedures</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
-    <div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-1">
-                Procedure Type:
+        <div class="col-md-8">
+            <div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h3>Enter search criteria to locate procedures.</h3>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2">
-                <select id="ddlProc"><option value="0">---Select---</option></select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-1">
-                Ins. Provider:
-            </div>
-            <div class="col-md-2">
-                <select id="ddlIns"><option value="0">---Select---</option></select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-1">
-                Procedure Date:
-            </div>
-            <div class="col-md-2">
-                <input type="date" id="procDate" size="10" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-1">
-                Patient Email:
-            </div>
-            <div class="col-md-2">
-                <input type="text" id="patEmail" size="30" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-1">
-                <input type="button" value="Search" onclick="search();" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-9">
-                <p id="procedure" />
+            <div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        Procedure Type:
+                    </div>
+                    <div class="col-md-2">
+                        <select id="ddlProc"><option value="0">---Select---</option></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        Ins. Provider:
+                    </div>
+                    <div class="col-md-2">
+                        <select id="ddlIns"><option value="0">---Select---</option></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        Procedure Date:
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" id="procDate" size="10" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        Patient Email:
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" id="patEmail" size="30" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-1">
+                        <input type="button" value="Search" onclick="search();" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-9">
+                        <p id="procedure" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="scripts/medIQ.js"></script>
     <script>
 
+        var userEmail = getCookie('userEmail');
+
         $(document).ready(function () {
+            checkUserValidated();
+
             $.ajax({
                 type: "get",
                 url: "api/Doctors",
@@ -156,7 +183,16 @@
         });
 
         function formatItem(item) {
-            return "<tr><td>" + item.PatientEmail + '</td><td>' + item.ProcedureDate + '</td></tr>';
+
+            var detailsLink = '<a href="details.html?pid=' + item.Id + '">View</a>';
+            var reviewLink = '';
+
+            if (item.PatientEmail == userEmail)
+            {
+                reviewLink = '<a href="review.html?pid=' + item.Id + '">Review</a>';
+            }
+
+            return '<tr><td>' + detailsLink + '</td><td>' + reviewLink + '</td><td>' + item.ProcedureName + '</td><td>' + item.DoctorName + '</td><td>' + item.InsurerName + '</td><td>' + item.PatientEmail + '</td><td>' + item.ProcedureDate + '</td><td>' + item.FacilityName + '</td></tr>';
         }
 
         function search() {
@@ -171,19 +207,22 @@
                 pEmail = 'xxx';
             }
 
+            $('#procedure').text('');
 
             var uri = 'api/Procedures/Search/' + $('#ddlProc').val() + '/' + $('#ddlIns').val() + '/' + pDate + '/' + pEmail;
 
-            $('#procedure').append('<table border="1"><tr><td>Email</td><td>Date</td></tr>');
+            var tableString = '<table border="1"><thead><tr><td>Details</td><td>Review</td><td>Procedure Type</td><td>Doctor Name</td><td>Insurance Provider</td><td>Patient Email</td><td>Procedure Date</td><td>Facility</td></tr></thead>';
 
             $.getJSON(uri)
                 .done(function (data) {
                     $.each(data, function (key, item) {
-                        $('#procedure').append(formatItem(item));
+                        tableString = tableString + (formatItem(item));
                     });
+                    tableString = tableString + '</tbody></table>';
+                    $('#procedure').append(tableString);
                 });
 
-            $('#procedure').append('</table>');
+
 
         }
     </script>

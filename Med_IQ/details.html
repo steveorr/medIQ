@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <title>Med IQ</title>
+    <meta charset="utf-8" />
+    <title>Details</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -45,83 +46,76 @@
             </section>
         </div>
         <div class="col-md-8">
-            <div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <h3>Add an Insurance Provider</h3>
-                    </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10"><h2>Procedure Details</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Procedure ID:
                 </div>
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-2">
-                        Provider Name:
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" id="pvdName" size="15" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-2">
-                        Provider Address:
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" id="pvdAddr" size="35" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-2">
-                        Provider Zip:
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" id="pvdZip" size="10" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-2">
-                        Provider Number:
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" id="pvdNo" size="15" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-1">
-                        <input type="button" value="Create" onclick="create();" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9">
-                        <p id="provider" />
-                    </div>
+                <div class="col-md-2">
+                    <div id="procID"></div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Procedure Date:
+                </div>
+                <div class="col-md-2">
+                    <div id="procDate"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Patient Email:
+                </div>
+                <div class="col-md-2">
+                    <div id="patEmail"></div>
+                </div>
+            </div>
+            <p id="review" />
         </div>
     </div>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script src="scripts/medIQ.js"></script>
     <script>
-        $(document).ready(function () {
 
+        $(document).ready(function () {
             checkUserValidated();
+
+            var urlParams = new URLSearchParams(location.search);
+            var procId = urlParams.get('pid');
+
+            getById(procId);
         });
 
-        function create() {
-            var doc = { ProviderName: $('#pvdName').val(), ProviderAddress: $('#pvdAddr').val(), ProviderZip: $('#pvdZip').val(), ProviderNo: $('#pvdNo').val() };
+        function getById(procId) {
             $.ajax({
-                type: "POST",
-                data: JSON.stringify(doc),
-                url: "api/Insurance_Providers",
-                contentType: "application/json",
-                success: function (data) { $('#provider').text("Saved as ID: " + (data.Id)) }
+                type: "get",
+                url: "api/Procedures/GetProcDetails/" + procId,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (data) { displayDetails(data) },
+                failure: function () {
+                    alert("Error");
+                }
             });
         }
+
+        function displayDetails(dets) {
+
+            $('#procID').text((dets.Id));
+            $('#procDate').text((dets.ProcedureDate));
+            $('#patEmail').text((dets.PatientEmail))
+        }
+
     </script>
+
 </body>
 </html>

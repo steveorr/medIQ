@@ -101,6 +101,21 @@ namespace Med_IQ.Controllers
             return Ok(users);
         }
 
+        [Route("api/Users/Login/{username}/{password}")]
+        [HttpGet]
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult Login(string username, string password)
+        {
+            var user = db.Users.Where(p => p.UserName == username && p.Password == password).FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new Exception("Login attempt failed.");
+            }
+
+            return Ok(user);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

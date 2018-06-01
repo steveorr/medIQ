@@ -99,3 +99,6 @@ header #organizations h1{
 	margin: 0;
 }
 
+table thead {
+    font-weight: bold;
+}

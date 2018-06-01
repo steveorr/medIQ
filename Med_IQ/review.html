@@ -19,90 +19,116 @@
                     <li class="current"><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="subscription.html">Subscribe</a> </li>
-                    <li><a href="na.html">Login (WIP)</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li><a class="not-logged-in" href="login.html">Login</a></li>
+                    <li><a class="not-logged-in" href="register.html">Register</a></li>
+                    <li><p id="logged-in"></p></li>
+                    <li><a id="logout" style="display:none;" href="javascript:logOut();">Log out</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10"><h2>Procedure Review</h2></div>
-    </div>
-    <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-1">
-            Procedure ID:
-        </div>
         <div class="col-md-2">
-            <div id="procID"></div>
+            <section id="organizations" style="height:100%;">
+                <div class="container">
+                    <div class="menu">
+                        <ul>
+                            <li><a href="search.html">Procedure Search</a></li>
+                            <li id="lnkDocs" style="display:none;"><a href="doctor.html">Doctors</a></li>
+                            <li id="lnkProv" style="display:none;"><a href="provider.html">Insurance Providers</a></li>
+                            <li id="lnkFac" style="display:none;"><a href="facility.html">Medical Facilities</a></li>
+                            <li id="lnkProc" style="display:none;"><a href="procedure.html">Procedures</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-8">
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10"><h2>Procedure Review</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Procedure ID:
+                </div>
+                <div class="col-md-2">
+                    <div id="procID"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Procedure Date:
+                </div>
+                <div class="col-md-2">
+                    <div id="procDate"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Patient Email:
+                </div>
+                <div class="col-md-2">
+                    <div id="patEmail"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Cost:
+                </div>
+                <div class="col-md-2">
+                    <input type="text" id="txtCost" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Rating:
+                </div>
+                <div class="col-md-2">
+                    <select id="ddlRating">
+                        <option id="0">---Select Rating---</option>
+                        <option id="1">1</option>
+                        <option id="2">2</option>
+                        <option id="3">3</option>
+                        <option id="4">4</option>
+                        <option id="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Comments:
+                </div>
+                <div class="col-md-2">
+                    <textarea rows="10" cols="30" id="txtComments"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <input type="button" value="Submit Review" onclick="saveReview();" />
+                </div>
+            </div>
+            <p id="review" />
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            Procedure Date:
-        </div>
-        <div class="col-md-2">
-            <div id="procDate"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            Patient Email:
-        </div>
-        <div class="col-md-2">
-            <div id="patEmail"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            Cost:
-        </div>
-        <div class="col-md-2">
-            <input type="text" id="txtCost" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            Rating:
-        </div>
-        <div class="col-md-2">
-            <select id="ddlRating">
-                <option id="0">---Select Rating---</option>
-                <option id="1">1</option>
-                <option id="2">2</option>
-                <option id="3">3</option>
-                <option id="4">4</option>
-                <option id="5">5</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            Comments:
-        </div>
-        <div class="col-md-2">
-            <textarea rows="10" cols="30" id="txtComments"></textarea>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-2">
-            <input type="button" value="Submit Review" onclick="saveReview();" />
-        </div>
-    </div>
-    <p id="review" />
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="scripts/medIQ.js"></script>
     <script>
 
         $(document).ready(function () {
+            checkUserValidated();
+
             var urlParams = new URLSearchParams(location.search);
             var procId = urlParams.get('pid');
 
