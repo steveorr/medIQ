@@ -152,9 +152,9 @@ namespace Med_IQ.Controllers
             result.ProcedureName = db.Procedure_Types.Where(p => p.Id == proc.ProcedureTypeID).FirstOrDefault().ProcedureName;
             result.PatientEmail = proc.PatientEmail;
             result.ProcedureDate = proc.ProcedureDate;
-//            result.Reviews = proc.Reviews;
+//            result.Reviews = db.Reviews.Where(p => p.ProcedureID == procId).ToList();
 
-            return Ok(proc);
+            return Ok(result);
         }
 
         protected override void Dispose(bool disposing)

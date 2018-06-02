@@ -62,6 +62,15 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
+                    Procedure Name:
+                </div>
+                <div class="col-md-2">
+                    <div id="procName"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
                     Procedure Date:
                 </div>
                 <div class="col-md-2">
@@ -71,10 +80,55 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
+                    Doctor Name:
+                </div>
+                <div class="col-md-2">
+                    <div id="docName"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Medical Facility:
+                </div>
+                <div class="col-md-2">
+                    <div id="facName"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Insurance Provider:
+                </div>
+                <div class="col-md-2">
+                    <div id="insName"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
                     Patient Email:
                 </div>
                 <div class="col-md-2">
                     <div id="patEmail"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Review Rating:
+                </div>
+                <div class="col-md-2">
+                    <div id="revRating"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Review Comments:
+                </div>
+                <div class="col-md-4">
+                    <div id="revComments"></div>
                 </div>
             </div>
             <p id="review" />
@@ -92,7 +146,22 @@
             var procId = urlParams.get('pid');
 
             getById(procId);
+            getReviews(procId);
         });
+
+        //function getById(procId) {
+        //    $.ajax({
+        //        type: "get",
+        //        url: "api/Procedures/GetProcDetails/" + procId,
+        //        contentType: "application/json;charset=utf-8",
+        //        dataType: "json",
+        //        data: {},
+        //        success: function (data) { displayDetails(data) },
+        //        failure: function () {
+        //            alert("Error");
+        //        }
+        //    });
+        //}
 
         function getById(procId) {
             $.ajax({
@@ -108,11 +177,29 @@
             });
         }
 
+        function getReviews(procId) {
+            $.ajax({
+                type: "get",
+                url: "api/Reviews/GetReviewsForProc/" + procId,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {},
+                success: function (data) { $('#revRating').text(data[0].ReviewRating); $('#revComments').text(data[0].ReviewComments); },
+                failure: function () {
+                    alert("Error");
+                }
+            });
+        }
+
         function displayDetails(dets) {
 
             $('#procID').text((dets.Id));
+            $('#procName').text((dets.ProcedureName));
             $('#procDate').text((dets.ProcedureDate));
-            $('#patEmail').text((dets.PatientEmail))
+            $('#patEmail').text((dets.PatientEmail));
+            $('#docName').text((dets.DoctorName));
+            $('#facName').text((dets.FacilityName));
+            $('#insName').text((dets.InsurerName));
         }
 
     </script>
