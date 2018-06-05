@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Med IQ</title>
+    <title>medIQ - Medical Facility Entry Form</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -107,11 +107,14 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script src="scripts/medIQ.js"></script>
     <script>
+
+        // Checks to see if the user is validated when the page loads.
         $(document).ready(function () {
 
             checkUserValidated();
         });
 
+        // API call grabs the data entry fields, packages it as JSON, and sends to the API to create a new Medical Facility record.
         function create() {
             var doc = { FacilityName: $('#facName').val(), FacilityAddress: $('#facAddr').val(), FacilityZip: $('#facZip').val(), FacilityNo: $('#facNo').val() };
             $.ajax({

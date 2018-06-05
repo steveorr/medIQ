@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Details</title>
+    <title>medIQ - Procedure Details</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -139,6 +139,7 @@
     <script src="scripts/medIQ.js"></script>
     <script>
 
+        // Checks to see if the user is validated when the page loads. Also grabs the Procedure ID from the query string to load that record's details.
         $(document).ready(function () {
             checkUserValidated();
 
@@ -149,20 +150,7 @@
             getReviews(procId);
         });
 
-        //function getById(procId) {
-        //    $.ajax({
-        //        type: "get",
-        //        url: "api/Procedures/GetProcDetails/" + procId,
-        //        contentType: "application/json;charset=utf-8",
-        //        dataType: "json",
-        //        data: {},
-        //        success: function (data) { displayDetails(data) },
-        //        failure: function () {
-        //            alert("Error");
-        //        }
-        //    });
-        //}
-
+        // API call to get the specified Procedure's details by ID.
         function getById(procId) {
             $.ajax({
                 type: "get",
@@ -177,6 +165,7 @@
             });
         }
 
+        // API call to get the specified Procedure's reviews by ID.
         function getReviews(procId) {
             $.ajax({
                 type: "get",
@@ -191,6 +180,7 @@
             });
         }
 
+        // Takes the data row from the API call and populates the HTML using each element's ID.
         function displayDetails(dets) {
 
             $('#procID').text((dets.Id));

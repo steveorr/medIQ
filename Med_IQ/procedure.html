@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Med IQ</title>
+    <title>medIQ - Medical Procedure Entry Form</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -152,6 +152,7 @@
     <script src="scripts/medIQ.js"></script>
     <script>
 
+        // Checks to see if the user is validated when the page loads. Also populates all the dropdown lists from the database.
         $(document).ready(function () {
             checkUserValidated();
 
@@ -222,6 +223,7 @@
 
         });
 
+        // Grabs all the data entry fields and creates a JSON object that gets sent to the API to create a new Medical Procedure record.
         function create() {
 
             var doc = {

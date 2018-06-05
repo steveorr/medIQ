@@ -152,7 +152,6 @@ namespace Med_IQ.Controllers
             result.ProcedureName = db.Procedure_Types.Where(p => p.Id == proc.ProcedureTypeID).FirstOrDefault().ProcedureName;
             result.PatientEmail = proc.PatientEmail;
             result.ProcedureDate = proc.ProcedureDate;
-//            result.Reviews = db.Reviews.Where(p => p.ProcedureID == procId).ToList();
 
             return Ok(result);
         }

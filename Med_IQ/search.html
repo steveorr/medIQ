@@ -112,6 +112,7 @@
 
         var userEmail = getCookie('userEmail');
 
+        // Checks to see if the user is validated when the page loads. Also populates dropdown lists from the database.
         $(document).ready(function () {
             checkUserValidated();
 
@@ -182,6 +183,7 @@
 
         });
 
+        // Formats the data returned by the search into the HTML table results, including hyperlinks to go to Details and Review pages for each record.
         function formatItem(item) {
 
             var detailsLink = '<a href="details.html?pid=' + item.Id + '">View</a>';
@@ -195,6 +197,7 @@
             return '<tr><td>' + detailsLink + '</td><td>' + reviewLink + '</td><td>' + item.ProcedureName + '</td><td>' + item.DoctorName + '</td><td>' + item.InsurerName + '</td><td>' + item.PatientEmail + '</td><td>' + item.ProcedureDate + '</td><td>' + item.FacilityName + '</td></tr>';
         }
 
+        // Grabs search criteria, puts it into JSON, and sends to the Search API. Sends results to the formatItem function for display.
         function search() {
 
             var pDate = $('#procDate').val();

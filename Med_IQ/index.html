@@ -37,14 +37,6 @@
 
     </section>
 
-    <!--<section id="Procedure"><a href="search.html">Procedure</a>
-        <div class="container">
-            <form action="search.html">
-                <input type="search" placeholder="Procedure">
-            <button type="submit" class="button_1">Search (WIP)</button>
-            </form>
-        </div>
-    </section>-->
     <section id="organizations">
         <div class="container">
             <div class="menu">
@@ -86,51 +78,14 @@
         <p align="center">MedIQ Web, Copyright &copy; 2018</p>
     </footer>
 
-    <!--<div>
-        <h2>All Products</h2>
-        <ul id="doctors" />
-    </div>
-    <div>
-        <h2>Search by ID</h2>
-        <input type="text" id="docId" size="5" />
-        <input type="button" value="Search" onclick="find();" />
-        <p id="doctor" />
-    </div>-->
-
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script src="scripts/medIQ.js"></script>
     <script>
-        var uri = 'api/Doctors';
-
+        // Checks to see if the user is validated when the page loads.
         $(document).ready(function () {
 
             checkUserValidated();
-
-            // Send an AJAX request
-            $.getJSON(uri)
-                .done(function (data) {
-                    // On success, 'data' contains a list of products.
-                    $.each(data, function (key, item) {
-                        // Add a list item for the product.
-                        $('<li>', { text: formatItem(item) }).appendTo($('#doctors'));
-                    });
-                });
         });
-
-        function formatItem(item) {
-            return item.DoctorName + ': Lic#' + item.LicenseNo;
-        }
-
-        function find() {
-            var id = $('#docId').val();
-            $.getJSON(uri + '/' + id)
-                .done(function (data) {
-                    $('#doctor').text(formatItem(data));
-                })
-                .fail(function (jqXHR, textStatus, err) {
-                    $('#doctor').text('Error: ' + err);
-                });
-        }
     </script>
 </body>
 </html>
