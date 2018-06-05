@@ -41,6 +41,7 @@ namespace Med_IQ.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ErrorLog_Helper.LogError("Bad Model State - PutProcedures", "public IHttpActionResult PutProcedures(int id, Procedures procedures)");
                 return BadRequest(ModelState);
             }
 
@@ -74,15 +75,24 @@ namespace Med_IQ.Controllers
         [ResponseType(typeof(Procedures))]
         public IHttpActionResult PostProcedures(Procedures procedures)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    ErrorLog_Helper.LogError("Bad Model State - PostProcedures", "public IHttpActionResult PostProcedures(Procedures procedures)");
+                    return BadRequest(ModelState);
+                }
+
+                db.Procedures.Add(procedures);
+                db.SaveChanges();
+
+                return CreatedAtRoute("DefaultApi", new { id = procedures.Id }, procedures);
             }
-
-            db.Procedures.Add(procedures);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = procedures.Id }, procedures);
+            catch(Exception e)
+            {
+                ErrorLog_Helper.LogError(e);
+                return null;
+            }
         }
 
         // DELETE: api/Procedures/5

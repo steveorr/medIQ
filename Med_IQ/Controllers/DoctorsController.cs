@@ -76,6 +76,7 @@ namespace Med_IQ.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ErrorLog_Helper.LogError("Bad Model State - PostDoctors", "public IHttpActionResult PostDoctors(Doctors doctors)");
                 return BadRequest(ModelState);
             }
 

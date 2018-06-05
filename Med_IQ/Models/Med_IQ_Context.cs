@@ -21,6 +21,7 @@ namespace Med_IQ.Models
         public virtual DbSet<Procedures> Procedures { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public System.Data.Entity.DbSet<Med_IQ.Models.Error_Log> Error_Log { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -130,5 +131,6 @@ namespace Med_IQ.Models
                 .Property(e => e.Password)
                 .IsUnicode(false);
         }
+
     }
 }

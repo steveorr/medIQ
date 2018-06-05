@@ -130,6 +130,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\ErrorLog_Helper.cs" />
+    <Compile Include="Controllers\Error_LogController.cs" />
     <Compile Include="Controllers\Insurance_ProvidersController.cs" />
     <Compile Include="Controllers\Medical_FacilityController.cs" />
     <Compile Include="Controllers\ProceduresController.cs" />
