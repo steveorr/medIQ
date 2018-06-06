@@ -25,6 +25,9 @@ namespace Med_IQ.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<Med_IQ_Context>(null);
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Doctors>()
                 .Property(e => e.DoctorName)
                 .IsUnicode(false);
